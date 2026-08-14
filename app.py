@@ -7,6 +7,7 @@ from Heap.heap_main import heap_oprea
 from HashTable.hash_main import hash_oprea
 from Deque.deque_main import deque_oprea
 from Recursion.recursion_main import recursion_oprea
+from Sorting.sorting_main import sorting_oprea
 
 import importlib.util
 from pathlib import Path
@@ -45,7 +46,8 @@ def main():
         print("8. Hash Table")
         print("9. Deque")
         print("10. Recursion")
-        print("11. Exit")
+        print("11. Sorting Algorithms")
+        print("12. Exit")
         print("=" * 50)
 
         choice = input("Enter your choice: ").strip()
@@ -81,6 +83,9 @@ def main():
             recursion_oprea()
 
         elif choice == "11":
+            sorting_oprea()
+
+        elif choice == "12":
             print("Exiting Data Structures Project...")
             break
 

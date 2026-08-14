@@ -3,6 +3,9 @@ from Queue.queue_main import Queue_oprea
 from Stack.stack_main import Stack_oprea
 from Tree.tree_main import tree_oprea
 from Graph.graph_main import graph_oprea
+from HashTable.hash_main import hash_oprea
+from Sorting.sorting_main import sorting_oprea
+from Algorithms.algorithms_main import algorithms_oprea
 from Heap.heap_main import heap_oprea
 from HashTable.hash_main import hash_oprea
 from Deque.deque_main import deque_oprea

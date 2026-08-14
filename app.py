@@ -4,6 +4,7 @@ from Stack.stack_main import Stack_oprea
 from Tree.tree_main import tree_oprea
 from Graph.graph_main import graph_oprea
 from Heap.heap_main import heap_oprea
+from HashTable.hash_main import hash_oprea
 
 import importlib.util
 from pathlib import Path
@@ -39,7 +40,8 @@ def main():
         print("5. Binary Search Tree")
         print("6. Graph")
         print("7. Heap & Priority Queue")
-        print("8. Exit")
+        print("8. Hash Table")
+        print("9. Exit")
         print("=" * 50)
 
         choice = input("Enter your choice: ").strip()
@@ -66,6 +68,9 @@ def main():
             heap_oprea()
 
         elif choice == "8":
+            hash_oprea()
+
+        elif choice == "9":
             print("Exiting Data Structures Project...")
             break
 

@@ -1,57 +1,47 @@
-from .sorting import (
-    bubble_sort,
-    selection_sort,
-    insertion_sort,
-    merge_sort,
-    quick_sort
-)
+from .sorting import Sorting
 
 
 def sorting_oprea():
-    algorithms = {
-        "1": ("Bubble Sort", bubble_sort),
-        "2": ("Selection Sort", selection_sort),
-        "3": ("Insertion Sort", insertion_sort),
-        "4": ("Merge Sort", merge_sort),
-        "5": ("Quick Sort", quick_sort),
-    }
-
     while True:
         print("\n" + "=" * 45)
-        print("             SORTING ALGORITHMS")
+        print("           SORTING ALGORITHMS")
         print("=" * 45)
         print("1. Bubble Sort")
         print("2. Selection Sort")
         print("3. Insertion Sort")
         print("4. Merge Sort")
         print("5. Quick Sort")
-        print("6. Back to Main Menu")
+        print("6. Check if Sorted")
+        print("7. Back")
         print("=" * 45)
 
         choice = input("Enter your choice: ").strip()
 
-        if choice == "6":
+        if choice == "7":
             break
 
-        if choice not in algorithms:
+        if choice not in {"1", "2", "3", "4", "5", "6"}:
             print("Invalid choice.")
             continue
 
-        name, algorithm = algorithms[choice]
-
         try:
-            data = list(map(
-                int,
-                input("Enter numbers separated by spaces: ").split()
-            ))
-
-            result = algorithm(data)
-
-            print(f"{name} Result:")
-            print(result)
-
+            data = list(map(int, input("Enter numbers separated by spaces: ").split()))
         except ValueError:
             print("Please enter valid integers.")
+            continue
+
+        if choice == "1":
+            print("Result:", Sorting.bubble_sort(data))
+        elif choice == "2":
+            print("Result:", Sorting.selection_sort(data))
+        elif choice == "3":
+            print("Result:", Sorting.insertion_sort(data))
+        elif choice == "4":
+            print("Result:", Sorting.merge_sort(data))
+        elif choice == "5":
+            print("Result:", Sorting.quick_sort(data))
+        elif choice == "6":
+            print("Sorted." if Sorting.is_sorted(data) else "Not sorted.")
 
 
 if __name__ == "__main__":

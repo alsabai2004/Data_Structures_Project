@@ -2,12 +2,7 @@ from .hash_table import HashTable
 
 
 def hash_oprea():
-    try:
-        capacity = int(input("Enter hash table capacity: "))
-        table = HashTable(capacity)
-    except ValueError:
-        print("Invalid capacity.")
-        return
+    table = HashTable()
 
     while True:
         print("\n" + "=" * 45)
@@ -17,10 +12,13 @@ def hash_oprea():
         print("2. Search")
         print("3. Delete")
         print("4. Display")
-        print("5. Size")
-        print("6. Check Empty")
-        print("7. Clear")
-        print("8. Back to Main Menu")
+        print("5. Keys")
+        print("6. Values")
+        print("7. Items")
+        print("8. Size")
+        print("9. Check Empty")
+        print("10. Clear")
+        print("11. Back")
         print("=" * 45)
 
         choice = input("Enter your choice: ").strip()
@@ -31,37 +29,40 @@ def hash_oprea():
             if table.insert(key, value):
                 print("Key inserted successfully.")
             else:
-                print("Key already exists. Value updated.")
+                print("Key updated successfully.")
 
         elif choice == "2":
             key = input("Enter key: ")
             value = table.search(key)
-            if value is None:
-                print("Key was not found.")
-            else:
-                print("Value:", value)
+            print("Value:", value if value is not None else "Key not found.")
 
         elif choice == "3":
             key = input("Enter key: ")
-            if table.delete(key):
-                print("Key deleted successfully.")
-            else:
-                print("Key was not found.")
+            print("Deleted successfully." if table.delete(key) else "Key not found.")
 
         elif choice == "4":
             table.display()
 
         elif choice == "5":
-            print("Size:", table.size())
+            print("Keys:", table.keys())
 
         elif choice == "6":
-            print("Empty." if table.is_empty() else "Not empty.")
+            print("Values:", table.values())
 
         elif choice == "7":
-            table.clear()
-            print("Hash Table cleared.")
+            print("Items:", table.items())
 
         elif choice == "8":
+            print("Size:", table.get_size())
+
+        elif choice == "9":
+            print("Hash table is empty." if table.is_empty() else "Hash table contains elements.")
+
+        elif choice == "10":
+            table.clear()
+            print("Hash table cleared successfully.")
+
+        elif choice == "11":
             break
 
         else:

@@ -1,187 +1,243 @@
 from models.node import Node
+
+
 class Linkedlist:
     def __init__(self):
         self.Head = None
+
+    def is_empty(self):
+        return self.Head is None
+
     def append(self, item):
-        New_node = Node(item)
+        new_node = Node(item)
+
         if self.Head is None:
-            self.Head = New_node
-            return
+            self.Head = new_node
+            return True
+
         temp = self.Head
+
         while temp.Next is not None:
             temp = temp.Next
-        temp.Next = New_node
+
+        temp.Next = new_node
+        return True
+
     def display(self):
         if self.Head is None:
-            print("the linked is empty")
+            print("The linked list is empty.")
             return
-        temp  = self.Head
+
+        temp = self.Head
+
         while temp is not None:
             print(temp.data)
-            temp = temp.Next   
-
-
-    def addafter(self,item,after):
-        if self.Head is None:
-            print("the linked is emtpy")
-            return
-        New_node = Node(item)
-        temp = self.Head
-        while temp.data !=after:
             temp = temp.Next
-        if temp.data == after and temp.Next is None:
-            temp.Next  =New_node
-            return
-        New_node.Next = temp.Next
-        temp.Next  = New_node   
 
+    def addafter(self, item, after):
+        if self.Head is None:
+            print("The linked list is empty.")
+            return False
 
-    def addat(self,item,index):
-            if self.Head is None:
-                print("none")
-                return
-            temp = self.Head
-            New_node = Node(item)
-            number_Node = self.get_size(temp)+1
-            if index <=number_Node:
-                if index ==1:
-                    New_node.Next = self.Head
-                    self.Head = New_node
-                    return
-                if index ==number_Node:
-                    while temp.Next != None:
-                        temp = temp.Next
-                    temp.Next = New_node
-                    return
-                counter = 1
-                while index -1 != counter:
-                    temp = temp.Next
-                    counter+=1
-                New_node.Next = temp.Next
-                temp.Next = New_node
-            else:
-                print("the index that you take it is bigger than the size of the linkedlist")
+        temp = self.Head
 
-    def get_size(self, mnode):
-            if mnode is None:
-                return 0 
-            return 1+self.get_size(mnode.Next)
-    ####################################################################
-    
+        while temp is not None:
+            if temp.data == after:
+                new_node = Node(item)
+                new_node.Next = temp.Next
+                temp.Next = new_node
+                return True
+
+            temp = temp.Next
+
+        print(f"Value {after} was not found.")
+        return False
+
+    def addat(self, item, index):
+        if index < 1:
+            print("Index must start from 1.")
+            return False
+
+        if index == 1:
+            new_node = Node(item)
+            new_node.Next = self.Head
+            self.Head = new_node
+            return True
+
+        if self.Head is None:
+            print("The linked list is empty.")
+            return False
+
+        temp = self.Head
+        counter = 1
+
+        while temp is not None and counter < index - 1:
+            temp = temp.Next
+            counter += 1
+
+        if temp is None:
+            print("Index out of range.")
+            return False
+
+        new_node = Node(item)
+        new_node.Next = temp.Next
+        temp.Next = new_node
+
+        return True
+
+    def get_size(self, mnode=None):
+        if mnode is None:
+            mnode = self.Head
+
+        count = 0
+        temp = mnode
+
+        while temp is not None:
+            count += 1
+            temp = temp.Next
+
+        return count
+
+    def get_length(self):
+        return self.get_size()
+
     def deletefirst(self):
         if self.Head is None:
-            print("list is empty")
-            return
+            print("List is empty.")
+            return False
+
         temp = self.Head
-        self.Head = temp.Next
+        self.Head = self.Head.Next
         temp.Next = None
-    #######################################################################
+
+        return True
+
     def deletelast(self):
         if self.Head is None:
-            print("list is empty")
-            return
-        elif self.Head.Next is None:
-            self.Head =None
-            return
+            print("List is empty.")
+            return False
+
+        if self.Head.Next is None:
+            self.Head = None
+            return True
+
         temp = self.Head
+
         while temp.Next.Next is not None:
             temp = temp.Next
+
         temp.Next = None
-    ##########################################################################
-    def get_length(self):
-        if self.Head is None:
-            return 0
-        couter = 0
-        temp = self.Head
-        while temp is not None:
-            couter+=1
-            temp = temp.Next
-        return couter
+        return True
 
-    #############################################################################
-    def find(self,item):
-        if self.Head is None:
-            return None
+    def find(self, item):
         temp = self.Head
+
         while temp is not None:
-            if temp.Data ==item:
-                break
+            if temp.data == item:
+                return temp
+
             temp = temp.Next
-        return temp
-#     ######################################
-    def findAt(self,position):
-        if self.Head is None:
+
+        return None
+
+    def findAt(self, position):
+        if position < 1:
+            print("Position must start from 1.")
             return None
-        if position > self.get_length():
-            print("out of bound.....")
-            return None
-        couter = 0
+
         temp = self.Head
+        counter = 1
+
         while temp is not None:
-            couter+=1
-            if temp.data ==couter:
-                break
+            if counter == position:
+                return temp
+
             temp = temp.Next
-        return temp
-    
-    def delete_Data(self,item):
+            counter += 1
+
+        print("Position out of range.")
+        return None
+
+    def delete_Data(self, item):
         if self.Head is None:
-            print("the linked is None")
-            return
-        temp = self.Head
+            print("The linked list is empty.")
+            return False
+
         if self.Head.data == item:
-            t = self.Head
-            self.Head = self.Head.Next
-            t.Next =None
-            return
-        while temp.Next.data !=item:
-            temp = temp.Next
-        if temp.Next.Next is None:
-            temp.Next = None
-            return
-        t = temp.Next
-        temp.Next = temp.Next.Next
-        t.Next = None
+            return self.deletefirst()
 
-
-
-
-    def delete_index(self,index):
-        if self.Head is None:
-            print("the linked is None")
-            return
         temp = self.Head
-        if index <= self.get_size(temp):
-            if index == 1:
-                t = self.Head
-                self.Head = self.Head.Next
-                t.Next = None
-                return
-            counter = 1
-            while index-1 !=counter:
-                temp = temp.Next
-                counter+=1
-            if temp.Next.Next is None:
-                temp.Next = None
-                return
-            t = temp.Next
-            temp.Next = temp.Next.Next
-            t.Next = None
-        else:
-            print("out of the range")
-   
-      def l(self,end):
-      	if            
-      def  deleteuntil(int item):
-      	if self.Head is None:
-      		print("list is empty")
-            return
-          temp = self.Head (input ("enter the "))
-          if self.Head.data == item:
-            t = self.Head
-            self.Head = self.Head.Next
-      	while temp.Next.Next is not None:
-      	   temp = temp.Next
-          temp.Next = None
-          
-          
+
+        while temp.Next is not None:
+            if temp.Next.data == item:
+                node = temp.Next
+                temp.Next = node.Next
+                node.Next = None
+                return True
+
+            temp = temp.Next
+
+        print(f"Value {item} was not found.")
+        return False
+
+    def delete_index(self, index):
+        if self.Head is None:
+            print("The linked list is empty.")
+            return False
+
+        if index < 1:
+            print("Index must start from 1.")
+            return False
+
+        if index == 1:
+            return self.deletefirst()
+
+        temp = self.Head
+        counter = 1
+
+        while temp.Next is not None and counter < index - 1:
+            temp = temp.Next
+            counter += 1
+
+        if temp.Next is None:
+            print("Index out of range.")
+            return False
+
+        node = temp.Next
+        temp.Next = node.Next
+        node.Next = None
+
+        return True
+
+    def deleteuntil(self, item):
+        if self.Head is None:
+            print("List is empty.")
+            return False
+
+        while self.Head is not None and self.Head.data != item:
+            self.deletefirst()
+
+        if self.Head is None:
+            print(f"Value {item} was not found.")
+            return False
+
+        return True
+
+    def clear(self):
+        self.Head = None
+
+    def to_list(self):
+        result = []
+        temp = self.Head
+
+        while temp is not None:
+            result.append(temp.data)
+            temp = temp.Next
+
+        return result
+
+    def __len__(self):
+        return self.get_size()
+
+    def __str__(self):
+        return str(self.to_list())
